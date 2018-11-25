@@ -2853,6 +2853,8 @@ class MyForm(settingsmixin.SMainWindow):
             QtCore.QEventLoop.AllEvents, 1000
         )
 
+        self.wait = False
+
         # save state and geometry self and all widgets
         self.updateStatusBar(_translate(
             "MainWindow", "Saving settings... %1%").arg(70))
@@ -2895,7 +2897,7 @@ class MyForm(settingsmixin.SMainWindow):
         event.ignore()
         if not trayonclose:
             # quit the application
-            self.quit()
+            QtCore.QTimer.singleShot(0, self.quit)
 
     def on_action_InboxMessageForceHtml(self):
         msgid = self.getCurrentMessageId()
